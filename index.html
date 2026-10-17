@@ -1,2 +1,382 @@
-# Ledysha-Ria-Sihombing
-Ledysha's Website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ledysha Ria Sihombing</title>
+  <meta name="description" content="Personal website of Ledysha Ria Sihombing">
+
+  <!-- Cormorant Garamond = font nama. Lora = font cadangan untuk perangkat tanpa Constantia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fbe9ee;
+      --bg-deep: #f6d6df;
+      --ink: #5a3a45;
+      --soft: #8f6877;
+      --accent: #e8b4c2;
+      --volt: #e07a98;
+      --rose: #c25577;
+      --glass: rgba(255, 255, 255, .5);
+      --font-nama: "Cormorant Garamond", Georgia, serif;           /* hanya untuk nama & sapaan di atas */
+      --font: Constantia, Lora, Georgia, serif;                    /* judul bagian & isi */
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      font-size: 1.06rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: radial-gradient(ellipse at 50% 0%, #fff4f7 0%, var(--bg) 55%, var(--bg-deep) 100%) fixed;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='none' stroke='%23e8b4c2'%3E%3Cpath d='M0 40h50l20 20h40M80 0v30l20 20h60M30 160v-40l20-20h50l20-20v-40'/%3E%3Ccircle cx='110' cy='60' r='3'/%3E%3Ccircle cx='160' cy='50' r='3'/%3E%3Ccircle cx='30' cy='160' r='3'/%3E%3Ccircle cx='140' cy='40' r='3'/%3E%3C/svg%3E");
+      -webkit-mask-image: radial-gradient(ellipse at 50% 40%, transparent 25%, #000 100%);
+      mask-image: radial-gradient(ellipse at 50% 40%, transparent 25%, #000 100%);
+    }
+    a { color: inherit; }
+    svg.ic { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+    /* Menu */
+    .top { position: sticky; top: 0; z-index: 20; background: rgba(251, 233, 238, .75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232, 180, 194, .55); }
+    .top .in { max-width: 1040px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 8px; font-family: var(--font-nama); font-size: 1.6rem; font-weight: 600; text-decoration: none; }
+    .logo svg { color: var(--volt); }
+    .top nav { display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none; }
+    .top nav a { color: var(--soft); text-decoration: none; white-space: nowrap; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+    .top nav a:hover, .top nav a:focus-visible { color: var(--ink); border-color: var(--volt); }
+
+    /* Hero */
+    .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 56px 24px 8px; animation: masuk 1.1s ease-out both; }
+    .foto-wrap { position: relative; padding: 10px; margin: 36px; border: 1px solid var(--accent); border-radius: 50%; }
+    .orbit { position: absolute; inset: -34px; border: 1px dashed var(--accent); border-radius: 50%; animation: putar 16s linear infinite; }
+    .orbit::before { content: ""; position: absolute; top: -5px; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--volt); box-shadow: 0 0 0 4px rgba(224, 122, 152, .18), 0 0 14px 3px rgba(224, 122, 152, .55); }
+    .foto { width: min(250px, 62vw); aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: linear-gradient(160deg, #fdf3f6, var(--accent)); box-shadow: 0 24px 50px -24px rgba(154, 115, 129, .55); }
+    .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    h1 { font-family: var(--font-nama); font-weight: 500; font-size: clamp(2.6rem, 8vw, 4.6rem); line-height: 1.1; }
+    .deskripsi { max-width: 900px; margin-top: 18px; font-family: var(--font-nama); font-style: italic; font-size: clamp(1.15rem, 3.2vw, 1.45rem); line-height: 1.4; color: var(--soft); }
+    .deskripsi p + p { margin-top: 6px; }
+    .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
+    .btn { padding: 10px 28px; border-radius: 999px; border: 1px solid var(--volt); text-decoration: none; transition: box-shadow .25s, background .25s; }
+    .btn.utama { background: var(--rose); border-color: var(--rose); color: #fff; }
+    .btn:hover, .btn:focus-visible { box-shadow: 0 0 0 4px rgba(224, 122, 152, .2), 0 8px 24px -8px rgba(194, 85, 119, .6); }
+    .btn:not(.utama):hover { background: #fff4f7; }
+
+    /* Bagian */
+    main { max-width: 1040px; margin: 0 auto; padding: 0 24px 24px; }
+    section { padding-top: 84px; scroll-margin-top: 56px; }
+    h2 { display: flex; align-items: center; gap: 20px; font-weight: 400; font-size: clamp(1.8rem, 4.5vw, 2.4rem); line-height: 1.2; margin-bottom: 32px; }
+    h2::after { content: ""; flex: 1; height: 3px; background: linear-gradient(90deg, transparent, var(--volt), transparent) -90px 0 / 90px 3px no-repeat, linear-gradient(var(--accent), var(--accent)) center / 100% 1px no-repeat; animation: alir 3.8s ease-in-out infinite; }
+    h3 { font-weight: 500; font-size: 1.3rem; line-height: 1.3; }
+    .info { font-style: italic; color: var(--soft); font-size: .98rem; }
+    .lokasi { display: flex; align-items: center; gap: 6px; margin-top: 4px; color: var(--soft); font-size: .95rem; }
+    .lokasi svg { color: var(--volt); }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1.7fr 1fr; gap: 48px; }
+    .about p { line-height: 1.8; }
+    .about p + p { margin-top: 14px; }
+    .fakta { align-self: start; display: grid; gap: 18px; padding-left: 26px; border-left: 1px solid var(--accent); }
+    .fakta dt { font-style: italic; color: var(--soft); font-size: .95rem; }
+    .fakta dd { margin-top: 1px; }
+
+    /* Education */
+    .jalur .item { position: relative; padding-left: 28px; border-left: 1px solid var(--accent); }
+    .jalur .item + .item { margin-top: 30px; }
+    .jalur .item::before { content: ""; position: absolute; left: -5px; top: .5em; width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--volt); background: var(--bg); }
+
+    /* Experience */
+    .exp { display: grid; grid-template-columns: 180px 1fr; gap: 6px 32px; padding: 24px 0; border-top: 1px solid rgba(232, 180, 194, .8); }
+    .exp:last-child { border-bottom: 1px solid rgba(232, 180, 194, .8); }
+    .exp .waktu { font-style: italic; color: var(--soft); }
+    .exp ul { list-style: none; margin-top: 8px; }
+    .exp li { position: relative; padding-left: 20px; }
+    .exp li + li { margin-top: 4px; }
+    .exp li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 6px; height: 6px; border-radius: 50%; background: var(--volt); }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .panel { background: var(--glass); border: 1px solid var(--accent); border-radius: 22px; padding: 26px 28px; }
+    .chip { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .chip li { border: 1px solid var(--accent); border-radius: 999px; padding: 3px 15px; font-size: .98rem; background: rgba(255, 255, 255, .55); transition: border-color .2s, box-shadow .2s; }
+    .chip li:hover { border-color: var(--volt); box-shadow: 0 0 12px rgba(224, 122, 152, .35); }
+
+    /* Projects */
+    .proyek { display: grid; gap: 22px; }
+    .kartu { background: var(--glass); border: 1px solid var(--accent); border-radius: 22px; padding: 28px 30px; transition: border-color .25s, box-shadow .25s; }
+    .kartu:hover { border-color: var(--volt); box-shadow: 0 20px 44px -28px rgba(154, 115, 129, .65); }
+    .kartu > p { margin-top: 8px; }
+    summary { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; padding: 7px 22px; border: 1px solid var(--volt); border-radius: 999px; cursor: pointer; list-style: none; transition: background .2s; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 1.2rem; line-height: 1; color: var(--rose); }
+    details[open] summary::after { content: "\2013"; }
+    summary:hover, summary:focus-visible { background: #fff4f7; }
+    .detail { margin-top: 22px; padding-top: 22px; border-top: 1px dashed var(--accent); animation: masuk .5s ease-out; }
+    .detail h4 { margin: 16px 0 3px; font-weight: 400; font-style: italic; font-size: .98rem; color: var(--soft); }
+    .detail h4:first-child { margin-top: 0; }
+    .detail p { line-height: 1.75; }
+    .tautan { display: flex; gap: 22px; margin-top: 18px; }
+    .tautan a { text-decoration-color: var(--volt); text-underline-offset: 4px; }
+
+    /* Awards */
+    .penghargaan { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+    .award { display: flex; gap: 16px; padding: 22px; border: 1px solid var(--accent); border-radius: 18px; background: rgba(255, 255, 255, .4); transition: border-color .25s; }
+    .award:hover { border-color: var(--volt); }
+    .badge { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--volt); background: #fff4f7; color: var(--rose); font-size: 1.3rem; }
+    .award h3 { font-size: 1.15rem; }
+    .award p { margin-top: 6px; font-size: .98rem; }
+
+    /* Contact */
+    .kontak { text-align: center; padding: 52px 24px; border: 1px solid var(--accent); border-radius: 30px; background: linear-gradient(135deg, rgba(255, 255, 255, .7), rgba(246, 214, 223, .75)); }
+    .kontak p { font-style: italic; color: var(--soft); font-size: 1.15rem; margin-bottom: 24px; }
+    .kontak .cta { margin-top: 0; }
+
+    footer { text-align: center; color: var(--soft); font-size: .95rem; padding: 56px 24px 40px; }
+
+    @keyframes masuk { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes putar { to { transform: rotate(360deg); } }
+    @keyframes alir { to { background-position: calc(100% + 90px) 0, center; } }
+
+    @media (max-width: 760px) {
+      .about, .skills, .exp { grid-template-columns: 1fr; }
+      .about { gap: 32px; }
+      .logo span { display: none; }
+      section { padding-top: 64px; }
+    }
+    @media (max-width: 420px) {
+      .penghargaan { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero, .orbit, h2::after, .detail { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="in">
+      <a class="logo" href="#top" aria-label="Back to top">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg><span>LRS</span>
+      </a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#awards">Awards</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="foto-wrap">
+      <div class="orbit"></div>
+      <div class="foto"><img src="foto.jpg" alt="Photo of Ledysha Ria Sihombing"></div>
+    </div>
+    <h1>Ledysha Ria Sihombing</h1>
+    <div class="deskripsi">
+      <p>Hi Everyone!</p>
+      <p>A Glimpse Into Who I Am</p>
+      <p>First-Year Student of Electrical Engineering Technology at Gadjah Mada University</p>
+      <p>Exploring Embedded Systems, Microcontrollers, and IoT</p>
+    </div>
+  </div>
+
+  <main>
+    <!-- ABOUT ME -->
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about">
+        <div>
+          <p>An Applied Bachelor's student in Electrical Engineering Technology at Universitas Gadjah Mada, originally from North Sumatra, with a strong interest in robotics and a growing curiosity about microcontrollers, PLC, and automation in the automotive field, there is always something new to explore. Electric vehicles and Battery Management Systems (BMS) have also become interesting areas to learn more about. The current journey is about exploring these different fields and discovering where skills and passion truly meet. The long-term goal is to find one specific field to focus on and develop deeper knowledge and expertise.</p>
+          <p>Entering the world of engineering has been a big step outside the comfort zone. Before discovering the world of electrical engineering, life was filled with music, playing the piano, singing, debating, and speaking in front of an audience. These activities may seem far from engineering, but have shaped a different side of the journey. Choosing electrical engineering meant stepping into a completely new world, full of challenges and unfamiliar things to learn. Despite the difficulties, a genuine love for the field has made every step worthwhile. This journey is not only about learning technology, but also about growing, discovering new strengths, and finding a place in the world of engineering.</p>
+        </div>
+        <!-- Ringkasan singkat: ganti isinya sesuka kamu -->
+        <dl class="fakta">
+          <div><dt>From</dt><dd>North Sumatra, Indonesia.</dd></div>
+          <div><dt>Studying</dt><dd>Electrical Engineering Technology, UGM.</dd></div>
+          <div><dt>Interests</dt><dd>Robotics, Embedded Systems, IoT, Automation, EV.</dd></div>
+          <div><dt>Beyond engineering</dt><dd>Pianist, singing, debating, public speaking.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- EDUCATION: salin blok .item untuk menambah; ganti teks di .lokasi dengan daerah -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="jalur">
+        <div class="item">
+          <h3>Gadjah Mada University</h3>
+          <div class="info">Electrical Engineering Technology · 2026 – Present</div>
+          <div class="lokasi"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Yogyakarta, Indonesia</div>
+        </div>
+        <div class="item">
+          <h3>SMA Negeri 1 Kabanjahe</h3>
+          <div class="info">2023 – 2026</div>
+          <div class="lokasi"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Kabanjahe, North Sumatra, Indonesia</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE: salin blok .exp untuk menambah pengalaman -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div>
+        <div class="exp">
+          <div class="waktu">2025 – 2026</div>
+          <div>
+            <h3>Olympiad Coordinator</h3>
+            <div class="info">Organisasi Siswa Intra Sekolah · SMA Negeri 1 Kabanjahe</div>
+            <ul>
+              <li>General Coordinator Olympiad for all subjects, coordinate the number of members participating in the olympiad, manage funds required for transportation and registration fees, monitor weekly training sessions for all olympiad subjects, organize the olympiad selection system and select the questions to be used in the test.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp">
+          <div class="waktu">2023 – 2026</div>
+          <div>
+            <h3>Mathematics Olympiad Team</h3>
+            <div class="info">Organisasi Siswa Intra Sekolah · SMA Negeri 1 Kabanjahe</div>
+            <ul>
+              <li>An Mathematics Olympiad Team that passed the selection process over two years.</li>
+            </ul>
+          </div>
+        </div>
+         <div class="exp">
+          <div class="waktu">2020 – Present</div>
+          <div>
+            <h3>Church Organist</h3>
+            <div class="info">Gereja Kristen Protestan Simalungun </div>
+            <ul>
+              <li>Music has been part of the journey since childhood, not only as a passion but also as a way to serve God. With experience playing the organ, classical piano, and keyboard, music has become an important part of life. Playing during church services has helped build confidence and overcome stage fright from an early age. Beyond performing, music is a way to strengthen faith and express gratitude to God. It also serves as a source of comfort during stressful times, bringing peace, and helping restore motivation.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="panel">
+          <h3>Hard Skills</h3>
+          <ul class="chip">
+            <li>Arduino</li><li>C++</li><li>Python</li><li>HTML</li><li>Tinkercad</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Soft Skills</h3>
+          <ul class="chip">
+            <li>Communication</li><li>Teamwork</li><li>Leadership</li><li>Time Management</li><li>Problem Solving</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS: klik "View project" untuk membuka penjelasan -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="proyek">
+        <article class="kartu">
+          <h3>Automatic Air Humidifier</h3>
+          <div class="info">2026 · Team Leader</div>
+          <p>A smart system that activates using a temperature sensor.</p>
+          <details>
+            <summary>View project</summary>
+            <div class="detail">
+              <h4>Overview</h4>
+              <p>A smart temperature and humidity control system built using an Arduino microcontroller and C++. The system automatically activates a spray module when the temperature exceeds a set limit and turns it off when the temperature returns to normal.</p>
+              <h4>How it works</h4>
+              <p>The LM35 sensor measures the room temperature, and the Arduino reads the data. The LCD shows the temperature in real time, while a potentiometer adjusts the screen brightness. If the temperature gets too high, a red LED turns on, the buzzer makes a sound, and the spray module starts working. When the temperature returns to the normal range, the spray module turns off.</p>
+              <h4>My role</h4>
+              <p>As the team leader, I assigned tasks to each team member, coordinated the circuit design and programming, and ensured that the team worked together throughout the project.</p>
+              <h4>Result</h4>
+              <p>Successfully developed and simulated an automatic temperature control system. This project improved practical skills in Arduino programming, circuit design, teamwork, and problem-solving.</p>
+              <h4>Fun Fact</h4>
+              <p>The project started from scratch, from designing the circuit and writing the code independently to assembling the components. The process also involved calculating component costs, designing the casing, and building it using available materials, including recycled plastic bottles. It was a hands-on experience in turning an idea into a working prototype with limited resources.</p>
+            </div>
+          </details>
+        </article>
+
+        <article class="kartu">
+          <h3>Automatic Toren</h3>
+          <div class="info">2025 · Team Leader</div>
+          <p>A smart system that uses an Ultrasonic Distance Sensor to automatically activate the toren based on distance.</p>
+          <details>
+            <summary>View project</summary>
+            <div class="detail">
+              <h4>Overview</h4>
+              <p>An automatic toren system built using an Arduino microcontroller and C++. It helps control the water pump automatically, so there is no need to turn it on or off manually.</p>
+              <h4>How it works</h4>
+              <p>The ultrasonic sensor measures the water level by detecting the distance between the sensor and the water surface. The Arduino processes the data and controls the DC motor to turn the water pump on or off based on the water level. The system was designed and simulated using Tinkercad.</p>
+              <h4>My role</h4>
+              <p>As a team member, I helped develop the circuit design and Arduino program to make the water pump work automatically.</p>
+              <h4>Result</h4>
+              <p>Successfully designed and simulated an automatic toren system using Arduino and an ultrasonic sensor. This project addresses a common problem where people forget to turn off the water pump when the tank is full, causing water wastage. By combining a sensor, a motor, and an Arduino, the system automates water pump control, reduces the risk of overflowing, and makes daily tasks easier.</p>
+            </div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- AWARDS: salin blok .award untuk menambah penghargaan -->
+    <section id="awards">
+      <h2>Awards</h2>
+      <div class="penghargaan">
+        <div class="award">
+          <div class="badge"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <div>
+            <h3>Silver Medalist in the Provincial-Level Math Olympiad</h3>
+            <div class="info">Pusat Olimpiade Sains Indonesia · 2025</div>
+          </div>
+        </div>
+        <div class="award">
+          <div class="badge"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <div>
+            <h3>Bronze Medalist in the Provincial-Level Math Olympiad</h3>
+            <div class="info">Sumatera Competition of Potential and Education · 2025</div>
+          </div>
+        </div>
+        <div class="award">
+          <div class="badge"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <div>
+            <h3>Bronze Medalist in the Provincial-Level Informatics Olympiad</h3>
+            <div class="info">Olimpiade Sains Hardiknas · 2025</div>
+          </div>
+        </div>
+        <div class="award">
+          <div class="badge"><svg class="ic" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
+          <div>
+            <h3>Mathematics Olympiad Certificate of Achievement OSN-K 2025</h3>
+            <div class="info">Pusat Prestasi Nasional · 2025</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="kontak">
+        <p>Feel free to reach out, I would love to connect.</p>
+        <div class="cta">
+          <a class="btn utama" href="mailto:ledysharias@gmail.com">Email</a>
+          <a class="btn" href="https://www.linkedin.com/in/ledysha-ria-sihombing-870a0a374" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://www.instagram.com/ledyshaa._qray?srtk=anoxcHNjMXRpcXV5" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>2026 Ledysha Ria Sihombing</footer>
+</body>
+</html>
